@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2023 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2025 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -19,33 +19,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
+#pragma once
 
-/**
- * Platform-independent Arduino functions for I2C EEPROM.
- * Enable USE_SHARED_EEPROM if not supplied by the framework.
- */
-#ifdef ARDUINO_ARCH_HC32
+#if HOTENDS > 2 || E_STEPPERS > 1
+  #error "Creality V252 supports up to 2 hotends and 1 E stepper."
+#endif
 
-#include "../../../inc/MarlinConfig.h"
+#define BOARD_INFO_NAME "Creality3D V252"
 
-#if ENABLED(IIC_BL24CXX_EEPROM)
+#if !AXIS_DRIVER_TYPE_X(TMC2208_STANDALONE) || !AXIS_DRIVER_TYPE_Y(TMC2208_STANDALONE) || !AXIS_DRIVER_TYPE_Z(TMC2208_STANDALONE) || !AXIS_DRIVER_TYPE_E0(TMC2208_STANDALONE)
+  #error "Creality V252 requires TMC2208_STANDALONE for X,Y,Z and E."
+#endif
 
-#include "../../../libs/BL24CXX.h"
-#include "../../shared/eeprom_if.h"
-
-void eeprom_init() {
-  BL24CXX::init();
-}
-
-void eeprom_write_byte(uint8_t *pos, unsigned char value) {
-  const unsigned eeprom_address = (unsigned)pos;
-  BL24CXX::writeOneByte(eeprom_address, value);
-}
-
-uint8_t eeprom_read_byte(uint8_t *pos) {
-  const unsigned eeprom_address = (unsigned)pos;
-  return BL24CXX::readOneByte(eeprom_address);
-}
-
-#endif // IIC_BL24CXX_EEPROM
-#endif // ARDUINO_ARCH_HC32
+//
+// Based on RAMPS CREALITY
+//
+#include "pins_RAMPS_CREALITY.h"
