@@ -1148,11 +1148,11 @@
  * Enable/disable and set parameters with G-code M493 and M494.
  * See ft_types.h for named values used by FTM options.
  */
-//#define FT_MOTION
+#define FT_MOTION
 #if ENABLED(FT_MOTION)
-  //#define FTM_IS_DEFAULT_MOTION               // Use FT Motion as the factory default?
-  //#define FT_MOTION_MENU                      // Provide a MarlinUI menu to set M493 and M494 parameters
-  //#define FTM_HOME_AND_PROBE                  // Use FT Motion for homing / probing. Disable if FT Motion breaks these functions.
+  #define FTM_IS_DEFAULT_MOTION               // Use FT Motion as the factory default?
+  #define FT_MOTION_MENU                      // Provide a MarlinUI menu to set M493 and M494 parameters
+  #define FTM_HOME_AND_PROBE                  // Use FT Motion for homing / probing. Disable if FT Motion breaks these functions.
 
   #define FTM_DEFAULT_DYNFREQ_MODE dynFreqMode_DISABLED // Default mode of dynamic frequency calculation. (DISABLED, Z_BASED, MASS_BASED)
 
@@ -1172,7 +1172,7 @@
   #define FTM_SHAPING_ZETA_Z            0.03f   // Zeta used by input shapers for Z axis
   #define FTM_SHAPING_V_TOL_Z           0.05f   // Vibration tolerance used by EI input shapers for Z axis
 
-  //#define FTM_SHAPER_E                        // Include E shaping support
+  #define FTM_SHAPER_E                        // Include E shaping support
                                                 // Required to synchronize extruder with XYZ (better quality)
   #define FTM_DEFAULT_SHAPER_E      ftMotionShaper_NONE // Default shaper mode on Extruder axis
   #define FTM_SHAPING_DEFAULT_FREQ_E   21.0f    // (Hz) Default peak frequency used by input shapers
@@ -1181,7 +1181,7 @@
 
   //#define FTM_RESONANCE_TEST                  // Sine sweep motion for resonance study
 
-  //#define FTM_SMOOTHING                       // Smoothing can reduce artifacts and make steppers quieter
+  #define FTM_SMOOTHING                       // Smoothing can reduce artifacts and make steppers quieter
                                                 // on sharp corners, but too much will round corners.
   #if ENABLED(FTM_SMOOTHING)
     #define FTM_MAX_SMOOTHING_TIME      0.10f   // (s) Maximum smoothing time. Higher values consume more RAM.
@@ -2378,9 +2378,9 @@
 
 #if ANY(LIN_ADVANCE, FT_MOTION)
   #if ENABLED(DISTINCT_E_FACTORS)
-    #define ADVANCE_K { 0.22 }     // (mm) Compression length per 1mm/s extruder speed, per extruder. Override with 'M900 T<tool> K<mm>'.
+    #define ADVANCE_K { 0.7 }     // (mm) Compression length per 1mm/s extruder speed, per extruder. Override with 'M900 T<tool> K<mm>'.
   #else
-    #define ADVANCE_K 0.22         // (mm) Compression length for all extruders. Override with 'M900 K<mm>'.
+    #define ADVANCE_K 0.7         // (mm) Compression length for all extruders. Override with 'M900 K<mm>'.
   #endif
   //#define ADVANCE_K_EXTRA       // Add a second linear advance constant, configurable with 'M900 L'.
 #endif
